@@ -34,12 +34,9 @@ body{
 .site-header{
   position:sticky; top:0; z-index:50;
   background:rgba(11,18,32,.55);
-    /* Prevent horizontal overflow on mobile due to off-canvas menus */
-    overflow-x:hidden;
   backdrop-filter:saturate(1.2) blur(12px);
   border-bottom:1px solid rgba(255,255,255,.05);
-  /* Container max width standardized for consistent alignment */
-  .container{width:min(1200px, 92%); margin-inline:auto}
+}
 .nav-container{display:flex; align-items:center; justify-content:space-between; height:64px}
 .brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text)}
 .logo{display:grid; place-items:center; width:36px; height:36px; border-radius:10px; background:var(--accent-grad); font-weight:800; animation:logoGlow 6s ease-in-out infinite}
@@ -55,9 +52,7 @@ body{
 .nav-link::after{content:""; position:absolute; left:10px; right:10px; bottom:6px; height:2px; border-radius:2px; background:linear-gradient(90deg, transparent, var(--accent), var(--accent-2), transparent); transform:scaleX(0); transform-origin:center; transition:transform .35s var(--ease), filter .35s var(--ease)}
 .nav-link:hover::after{transform:scaleX(1); filter:brightness(1.2)}
 
-  .nav-list{list-style:none; display:flex; gap:22px; padding:0; margin:0}
-  /* Touch targets and baseline alignment */
-  .nav-link{color:var(--muted); text-decoration:none; padding:10px 12px; border-radius:10px; transition:color .25s var(--ease), background .25s var(--ease); font-weight:600; letter-spacing:.02em; line-height:1}
+.nav-toggle{display:none; flex-direction:column; gap:5px; background:transparent; border:none; cursor:pointer}
 .nav-toggle .bar{width:24px; height:2px; background:var(--text); border-radius:2px}
 
 @media (max-width: 900px){
@@ -68,12 +63,10 @@ body{
 
 /* Hero */
 .hero{position:relative; padding:72px 0 24px}
-  /* Mobile menu: slide-down animation and improved spacing */
-  @media (max-width: 900px){
+.hero-inner{display:grid; grid-template-columns: 1.2fr .8fr; align-items:center; gap:40px}
 .eyebrow{color:var(--accent-2); text-transform:uppercase; letter-spacing:.2em; font-size:.78rem; margin:0 0 10px}
-    .nav-list{position:absolute; right:0; top:60px; flex-direction:column; background:rgba(11,18,32,.96); border:1px solid rgba(255,255,255,.06); border-radius:14px; padding:8px; min-width:240px; opacity:0; pointer-events:none; transform:translateY(-6px); transition:opacity .25s var(--ease), transform .25s var(--ease), max-height .35s var(--ease); max-height:0; overflow:hidden}
-    .nav.open .nav-list{opacity:1; pointer-events:auto; transform:translateY(0); max-height:480px}
-    .nav-link{padding:12px 14px}
+.hero h1{font-family:"Space Grotesk", Inter, system-ui; font-size:clamp(2rem, 1.7rem + 1.5vw, 3rem); line-height:1.1; margin:.2rem 0 1rem}
+.accent{background:var(--accent-grad); -webkit-background-clip:text; background-clip:text; color:transparent}
 .typing{display:block; color:var(--muted); font-weight:600; margin-top:8px; min-height:1.2em}
 .sub{color:var(--muted); max-width:65ch}
 
@@ -83,25 +76,10 @@ body{
 .btn.primary:hover{transform:translateY(-2px)}
 .btn.ghost{color:var(--text); border-color:rgba(255,255,255,.12); background:rgba(255,255,255,.03)}
 .btn.ghost:hover{background:rgba(255,255,255,.06)}
-  /* Mobile hero alignment and spacing fixes */
-  @media (max-width: 768px){
-    .hero{padding:96px 0 32px}
-    .hero-text{ text-align:center }
-    .sub{ margin-inline:auto }
-    .cta-row{ flex-direction:column; justify-content:center; align-items:stretch; gap:10px }
-    .cta-row .btn{ width:100%; min-height:44px }
-    .socials{ justify-content:center }
-  }
 .btn.icon i{font-size:18px; transition:transform .35s var(--ease)}
 .btn.icon:hover i{transform:translateY(-1px) rotate(-6deg)}
-  /* Ensure chip rows and cards wrap and center on mobile */
-  @media (max-width: 768px){
-    .chip-row{ justify-content:center }
-    .cards{ gap:16px }
-  }
 /* Neon border/gradient shimmer */
 .btn::before{content:""; position:absolute; inset:-2px; border-radius:14px; padding:2px; background:conic-gradient(from 180deg, var(--accent), var(--accent-2), var(--accent)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity:.0; transition:opacity .35s var(--ease)}
-  .site-header{ box-shadow: 0 6px 24px rgba(0,0,0,.25) }
 .btn:hover::before{opacity:.8}
 /* Shimmer sweep across button on hover */
 .btn::after{content:""; position:absolute; top:-50%; left:-30%; width:30%; height:200%; transform:skewX(-20deg); background:linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.25), rgba(255,255,255,0)); opacity:0; transition:opacity .3s var(--ease)}
