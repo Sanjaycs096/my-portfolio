@@ -11,12 +11,6 @@ if (navToggle) {
   navToggle.addEventListener('click', () => {
     const open = nav.classList.toggle('open');
     navToggle.setAttribute('aria-expanded', String(open));
-    // Avoid CLS: set explicit max-height when opening (CSS handles transition)
-    if (open){
-      navList && (navList.style.maxHeight = '480px');
-    } else {
-      navList && (navList.style.maxHeight = '0px');
-    }
   });
 }
 
@@ -27,7 +21,6 @@ if (navList) {
     if (target instanceof Element && target.matches('.nav-link')) {
       nav.classList.remove('open');
       navToggle?.setAttribute('aria-expanded', 'false');
-      navList.style.maxHeight = '0px';
     }
   });
 }
