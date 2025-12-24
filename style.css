@@ -1,0 +1,213 @@
+/* Base Theme */
+:root{
+  --bg:#0b1220;
+  --bg-elev:#0f172a;
+  --text:#e6e9f2;
+  --muted:#9aa4c7;
+  --glass:rgba(255,255,255,.06);
+  --glass-border:rgba(255,255,255,.12);
+  --accent: #7c6cff; /* purple */
+  --accent-2:#00d0ff; /* cyan */
+  --accent-grad: linear-gradient(135deg,var(--accent),var(--accent-2));
+  --shadow: 0 10px 30px rgba(0,0,0,.35);
+  --radius:16px;
+  --radius-sm:12px;
+  --ease: cubic-bezier(.22,.61,.36,1);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+
+body{
+  margin:0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  color:var(--text);
+  background:
+    radial-gradient(1200px 500px at 80% -20%, rgba(124,108,255,.25), transparent 60%),
+    radial-gradient(800px 400px at -10% 10%, rgba(0,208,255,.12), transparent 60%),
+    var(--bg);
+}
+
+.container{width:min(1100px, 92%); margin-inline:auto}
+
+/* Header */
+.site-header{
+  position:sticky; top:0; z-index:50;
+  background:rgba(11,18,32,.55);
+  backdrop-filter:saturate(1.2) blur(12px);
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+.nav-container{display:flex; align-items:center; justify-content:space-between; height:64px}
+.brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text)}
+.logo{display:grid; place-items:center; width:36px; height:36px; border-radius:10px; background:var(--accent-grad); font-weight:800; animation:logoGlow 6s ease-in-out infinite}
+.brand-text{font-family: "Space Grotesk", Inter, system-ui; font-weight:700; letter-spacing:.3px}
+
+.nav{position:relative}
+.nav-list{list-style:none; display:flex; gap:20px; padding:0; margin:0}
+.nav-link{color:var(--muted); text-decoration:none; padding:8px 10px; border-radius:10px; transition:.25s ease; font-weight:500}
+.nav-link:hover{color:var(--text); background:rgba(255,255,255,.04)}
+.nav-link.active{color:#121826; background:var(--accent-grad)}
+/* Nav underline glow */
+.nav-link{position:relative; overflow:hidden}
+.nav-link::after{content:""; position:absolute; left:10px; right:10px; bottom:6px; height:2px; border-radius:2px; background:linear-gradient(90deg, transparent, var(--accent), var(--accent-2), transparent); transform:scaleX(0); transform-origin:center; transition:transform .35s var(--ease), filter .35s var(--ease)}
+.nav-link:hover::after{transform:scaleX(1); filter:brightness(1.2)}
+
+.nav-toggle{display:none; flex-direction:column; gap:5px; background:transparent; border:none; cursor:pointer}
+.nav-toggle .bar{width:24px; height:2px; background:var(--text); border-radius:2px}
+
+@media (max-width: 900px){
+  .nav-toggle{display:flex}
+  .nav-list{position:absolute; right:0; top:60px; flex-direction:column; background:rgba(11,18,32,.96); border:1px solid rgba(255,255,255,.06); border-radius:14px; padding:12px; min-width:230px; opacity:0; pointer-events:none; transform:translateY(-6px); transition:.25s ease}
+  .nav.open .nav-list{opacity:1; pointer-events:auto; transform:translateY(0)}
+}
+
+/* Hero */
+.hero{position:relative; padding:72px 0 24px}
+.hero-inner{display:grid; grid-template-columns: 1.2fr .8fr; align-items:center; gap:40px}
+.eyebrow{color:var(--accent-2); text-transform:uppercase; letter-spacing:.2em; font-size:.78rem; margin:0 0 10px}
+.hero h1{font-family:"Space Grotesk", Inter, system-ui; font-size:clamp(2rem, 1.7rem + 1.5vw, 3rem); line-height:1.1; margin:.2rem 0 1rem}
+.accent{background:var(--accent-grad); -webkit-background-clip:text; background-clip:text; color:transparent}
+.typing{display:block; color:var(--muted); font-weight:600; margin-top:8px; min-height:1.2em}
+.sub{color:var(--muted); max-width:65ch}
+
+.cta-row{display:flex; align-items:center; gap:14px; margin-top:20px}
+.btn{position:relative; display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:12px; text-decoration:none; font-weight:600; transition:transform .15s var(--ease), box-shadow .35s var(--ease), background .35s var(--ease), color .35s var(--ease), filter .35s var(--ease); border:1px solid transparent; overflow:hidden}
+.btn.primary{background:var(--accent-grad); color:#10131c; box-shadow:0 10px 24px rgba(124,108,255,.25)}
+.btn.primary:hover{transform:translateY(-2px)}
+.btn.ghost{color:var(--text); border-color:rgba(255,255,255,.12); background:rgba(255,255,255,.03)}
+.btn.ghost:hover{background:rgba(255,255,255,.06)}
+.btn.icon i{font-size:18px; transition:transform .35s var(--ease)}
+.btn.icon:hover i{transform:translateY(-1px) rotate(-6deg)}
+/* Neon border/gradient shimmer */
+.btn::before{content:""; position:absolute; inset:-2px; border-radius:14px; padding:2px; background:conic-gradient(from 180deg, var(--accent), var(--accent-2), var(--accent)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity:.0; transition:opacity .35s var(--ease)}
+.btn:hover::before{opacity:.8}
+/* Shimmer sweep across button on hover */
+.btn::after{content:""; position:absolute; top:-50%; left:-30%; width:30%; height:200%; transform:skewX(-20deg); background:linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.25), rgba(255,255,255,0)); opacity:0; transition:opacity .3s var(--ease)}
+.btn:hover::after{animation:shimmer 1.2s var(--ease) forwards; opacity:1}
+@keyframes shimmer{0%{left:-30%} 100%{left:130%}}
+/* Press-down click effect */
+.btn:active{transform:translateY(1px) scale(.98); box-shadow:0 6px 16px rgba(0,0,0,.3)}
+/* Ripple effect element */
+.ripple{position:absolute; border-radius:50%; transform:translate(-50%,-50%); background:radial-gradient(circle, rgba(255,255,255,.45), rgba(255,255,255,.15) 40%, rgba(255,255,255,0) 70%); pointer-events:none; animation:ripple .6s var(--ease) forwards}
+@keyframes ripple{ from{width:0;height:0;opacity:.6} to{width:240px;height:240px;opacity:0} }
+/* Magnetic subtle hover lift */
+.btn.magnet{will-change:transform}
+
+.socials{display:flex; align-items:center; gap:10px}
+.icon-btn{display:grid; place-items:center; width:40px; height:40px; border-radius:12px; color:var(--text); background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1); transition:.25s ease}
+.icon-btn:hover{transform:translateY(-2px); background:rgba(255,255,255,.08)}
+
+.hero-visual{position:relative; min-height:280px}
+.orb{position:absolute; border-radius:50%; filter:blur(12px); opacity:.5}
+.orb-a{width:180px; height:180px; right:10%; top:10%; background:radial-gradient(circle at 30% 30%, rgba(124,108,255,.8), transparent 60%)}
+.orb-b{width:220px; height:220px; left:5%; bottom:5%; background:radial-gradient(circle at 70% 70%, rgba(0,208,255,.6), transparent 60%)}
+
+.mesh-card{position:absolute; right:0; bottom:0; padding:18px 20px; border-radius:16px; overflow:hidden; border:1px solid var(--glass-border)}
+.mesh-card .dot-grid{position:absolute; inset:0; background-image: radial-gradient(rgba(255,255,255,.08) 1px, transparent 1px); background-size:16px 16px}
+.mesh-card .pulse{position:absolute; inset:-40%; background:radial-gradient(circle, rgba(124,108,255,.25), transparent 60%); animation:pulse 5s infinite ease-in-out}
+.mesh-card span{position:relative; font-weight:600; letter-spacing:.2px}
+
+.hero-gradient{position:absolute; inset:0; background:radial-gradient(1000px 300px at 50% 110%, rgba(124,108,255,.18), transparent 70%); pointer-events:none}
+/* Liquid gradient layer under everything */
+body::before{content:""; position:fixed; inset:-20%; z-index:-1; background:radial-gradient(40% 60% at 20% 30%, rgba(124,108,255,.18), transparent 60%), radial-gradient(50% 60% at 80% 70%, rgba(0,208,255,.16), transparent 60%); filter:blur(20px) saturate(1.2); animation:liquid 18s ease-in-out infinite alternate}
+@keyframes liquid{0%{transform:translate(0,0) scale(1)} 50%{transform:translate(-2%,1%) scale(1.02)} 100%{transform:translate(2%,-1%) scale(1.03)}}
+
+@keyframes pulse{ 0%,100%{transform:scale(1)} 50%{transform:scale(1.2)} }
+
+@media (max-width: 980px){
+  .hero-inner{grid-template-columns: 1fr; gap:22px}
+  .hero{padding-top:88px}
+}
+
+/* Sections */
+.section{padding:64px 0}
+.section-title{font-family:"Space Grotesk"; font-size:clamp(1.4rem, 1.1rem + 1.2vw, 2rem); margin:0 0 22px}
+.grid-2{display:grid; gap:20px; grid-template-columns:1fr 1fr}
+@media (max-width: 840px){.grid-2{grid-template-columns:1fr}}
+/* Animated divider */
+.divider{height:2px; background:linear-gradient(90deg, transparent, rgba(124,108,255,.6), rgba(0,208,255,.6), transparent); background-size:200% 100%; animation:slide-grad 6s linear infinite; opacity:.4}
+@keyframes slide-grad{0%{background-position:0% 50%} 100%{background-position:200% 50%}}
+
+/* Glass + cards */
+.glass{background:var(--glass); border:1px solid var(--glass-border); box-shadow:var(--shadow); border-radius:var(--radius); backdrop-filter: blur(12px)}
+.card{padding:18px; transition:transform .25s var(--ease), box-shadow .35s var(--ease), background .35s var(--ease); transform-style:preserve-3d}
+.card:hover{transform:translateY(-6px); box-shadow:0 20px 40px rgba(0,0,0,.35)}
+.cards{display:grid; grid-template-columns:repeat(3, 1fr); gap:18px}
+@media (max-width: 980px){.cards{grid-template-columns: repeat(2, 1fr)}}
+@media (max-width: 640px){.cards{grid-template-columns: 1fr}}
+
+.tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
+.tags span{font-size:.8rem; padding:6px 10px; border-radius:999px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); color:var(--muted)}
+/* Neon border animation for glass cards */
+.glass{position:relative; overflow:hidden}
+.glass::before{content:""; position:absolute; inset:-2px; border-radius:inherit; padding:1px; background:conic-gradient(from 180deg, rgba(124,108,255,.6), rgba(0,208,255,.6), rgba(124,108,255,.6)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity:.25; animation:spin 10s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* Tech stack icons row */
+.stack{display:flex; gap:10px; align-items:center; margin-top:12px}
+.stack i{font-size:22px; filter:drop-shadow(0 2px 8px rgba(124,108,255,.15)); opacity:.9; transition:transform .35s var(--ease), filter .35s var(--ease)}
+.stack i:hover{transform:translateY(-2px) scale(1.05); filter:drop-shadow(0 6px 14px rgba(0,208,255,.35))}
+.card-actions{margin-top:14px; display:flex; gap:10px}
+.code-btn .btn-label{transition:transform .35s var(--ease), opacity .35s var(--ease)}
+.code-btn:hover .btn-label{transform:translateX(2px); opacity:.95}
+.code-btn:hover i{transform:rotate(-8deg) translateY(-1px)}
+
+/* Chips */
+.chips{margin-bottom:14px}
+.chips h3{margin:6px 0 10px; color:var(--muted); font-weight:600}
+.chip-row{display:flex; flex-wrap:wrap; gap:8px}
+.chip{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); color:var(--text); font-weight:600; transition:transform .25s var(--ease), box-shadow .35s var(--ease), background .35s var(--ease)}
+.chip:hover{background:rgba(255,255,255,.1); transform:translateY(-2px)}
+.chip i{font-size:18px}
+
+/* Lists */
+.list{list-style:none; padding:16px; margin:0; line-height:1.8}
+.list li{padding:8px 10px; border-radius:10px; transition:.25s ease}
+.list li:hover{background:rgba(255,255,255,.05)}
+
+/* About facts */
+.facts{list-style:none; padding:16px; margin:0; display:grid; gap:10px}
+.facts li{display:flex; align-items:center; justify-content:space-between; padding:10px 12px; border-radius:12px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08)}
+.facts span{color:var(--muted)}
+
+/* Text styles */
+.muted{color:var(--muted)}
+
+/* Reveal on scroll */
+.reveal{opacity:0; transform:translateY(16px); transition:opacity .7s var(--ease), transform .7s var(--ease)}
+.reveal.show{opacity:1; transform:translateY(0)}
+/* Reveal variants */
+.fade-up{transform:translateY(18px);}
+.slide-in{transform:translateX(-18px)}
+.scale-in{transform:scale(.96)}
+.fade-up.show{transform:translateY(0)}
+.slide-in.show{transform:translateX(0)}
+.scale-in.show{transform:scale(1)}
+
+/* Tooltips */
+[data-tooltip]{position:relative}
+[data-tooltip]::after{content:attr(data-tooltip); position:absolute; bottom:calc(100% + 8px); left:50%; transform:translateX(-50%); background:rgba(12,16,28,.9); color:#cfd5ea; padding:6px 8px; font-size:.78rem; border:1px solid rgba(255,255,255,.12); border-radius:8px; white-space:nowrap; opacity:0; pointer-events:none; transition:opacity .25s var(--ease), transform .25s var(--ease)}
+[data-tooltip]:hover::after{opacity:1; transform:translateX(-50%) translateY(-2px)}
+
+/* Footer */
+.site-footer{border-top:1px solid rgba(255,255,255,.06); padding:24px 0; background:rgba(11,18,32,.6); backdrop-filter: blur(6px)}
+.footer-inner{display:flex; align-items:center; justify-content:space-between}
+.footer-inner p{color:var(--muted); margin:0}
+
+/* Focus styles */
+:focus-visible{outline:2px solid var(--accent-2); outline-offset:2px; border-radius:10px}
+
+/* Floating background icons */
+.floating-icons{position:fixed; inset:0; pointer-events:none; z-index:0}
+.floating-icons i{position:absolute; font-size:32px; opacity:.08; filter:drop-shadow(0 6px 20px rgba(0,0,0,.4)); animation:float 12s ease-in-out infinite}
+@keyframes float{0%{transform:translateY(0)} 50%{transform:translateY(-12px)} 100%{transform:translateY(0)}}
+/* Place a few at various spots */
+.floating-icons i:nth-child(1){top:12%; left:8%}
+.floating-icons i:nth-child(2){top:22%; right:10%}
+.floating-icons i:nth-child(3){top:42%; left:16%}
+.floating-icons i:nth-child(4){top:66%; right:12%}
+.floating-icons i:nth-child(5){top:78%; left:10%}
+.floating-icons i:nth-child(6){top:30%; left:46%}
+.floating-icons i:nth-child(7){top:58%; left:58%}
+.floating-icons i:nth-child(8){top:12%; left:72%}
+.floating-icons i:nth-child(9){top:84%; left:46%}
+.floating-icons i:nth-child(10){top:6%; left:42%}
