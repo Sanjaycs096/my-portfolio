@@ -90,15 +90,10 @@ LinkedIn : https://linkedin.com/in/sanjaykumar-murugan
 • Add GSAP or 3D animations  
 • Add blog or case study section  
 
---------------------------------------------------
-📄 LICENSE
---------------------------------------------------
-This project is for personal and educational use.
-You are free to modify it for learning purposes.
 
 --------------------------------------------------
 ✨ AUTHOR
 --------------------------------------------------
-Sanjaykumar  
-Junior Software Developer  
+Sanjaykumar  M
+FULL-STACK DEVELOPER
 Passionate about Web Development, Cybersecurity & Software Engineering
